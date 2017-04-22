@@ -10,10 +10,6 @@ class natsSpec extends FunSuite with Matchers {
 
   import nats._
 
-  def readIntUnsafe[T: WeakTypeTag] = readInt(parse[T]).get
-
-  type `1` = Succ[Zero]
-  type `2` = Succ[`1`]
 
   test("zero") {
     readIntUnsafe[Zero] shouldBe 0
@@ -62,6 +58,23 @@ class natsSpec extends FunSuite with Matchers {
     readIntUnsafe[Minus[`1`, `1`]] shouldBe 0
     readIntUnsafe[Minus[`2`, `1`]] shouldBe 1
     readIntUnsafe[Minus[`2`, Zero]] shouldBe 2
+  }
+
+  test("predicates") {
+    import bools._
+    readBoolUnsafe[IsZero[Zero]] shouldBe true
+    readBoolUnsafe[IsZero[`1`]] shouldBe false
+
+
+    readBoolUnsafe[LEQ[`1`, `2`]] shouldBe true
+    readBoolUnsafe[LEQ[`1`, `1`]] shouldBe true
+    readBoolUnsafe[LEQ[`2`, `1`]] shouldBe false
+
+    readBoolUnsafe[EQ[`2`, `2`]] shouldBe true
+    readBoolUnsafe[EQ[`1`, `2`]] shouldBe false
+    readBoolUnsafe[EQ[`2`, `1`]] shouldBe false
+    readBoolUnsafe[EQ[`3`, `2`]] shouldBe false
+    readBoolUnsafe[EQ[`2`, `3`]] shouldBe false
   }
 
 }

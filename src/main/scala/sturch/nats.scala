@@ -1,5 +1,7 @@
 package sturch
 
+import sturch.bools.{And, False, True}
+
 import scala.language.higherKinds
 import scala.util.{Failure, Success, Try}
 
@@ -22,6 +24,12 @@ object nats {
     }
   }
   type Succ[Num <: TL] = SuccTL#Apply[Num]
+
+  type `1` = Succ[Zero]
+  type `2` = Succ[`1`]
+  type `3` = Succ[`2`]
+  type `4` = Succ[`3`]
+  type `5` = Succ[`4`]
 
   type PlusTL = TL {
     type Apply[M <: TL] = TL {
@@ -75,6 +83,29 @@ object nats {
   }
   type Minus[M <: TL, N <: TL] = MinusTL#Apply[M]#Apply[N ]
 
+
+  type IsZeroTL = TL {
+    type Apply[N <: TL] = N#Apply[Const[False]]#Apply[True]
+  }
+  type IsZero[N <: TL] = IsZeroTL#Apply[N]
+
+  type LEQTL = TL {
+    type Apply[M <: TL] = TL {
+      type Apply[N <: TL] = IsZero[Minus[M, N]]
+    }
+  }
+  type LEQ[M <: TL, N <: TL] = LEQTL#Apply[M]#Apply[N]
+  type `<=`[M <: TL, N  <: TL] = LEQ[M, N]
+
+  type EQTL = TL {
+    type Apply[M <: TL] = TL {
+      type Apply[N <: TL] = And[LEQ[M, N], LEQ[N, M]]
+    }
+  }
+  type EQ[M <: TL, N <: TL] = EQTL#Apply[M]#Apply[N]
+  type `==`[M <: TL, N  <: TL] = EQ[M, N]
+
+
   def readInt(expr: Expr): Try[Int] = {
     def countCalls(expr: Expr, fun: Var, x: Var, count: Int = 0): Try[Int] = {
       expr match {
@@ -89,5 +120,8 @@ object nats {
       case _ => Failure(new IllegalArgumentException("Not an int"))
     }
   }
+
+  import scala.reflect.runtime.universe.WeakTypeTag
+  def readIntUnsafe[T: WeakTypeTag]: Int = readInt(parse[T]).get
 
 }

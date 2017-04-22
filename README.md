@@ -7,10 +7,10 @@
 import sturch.nats._
 import sturch.bools._
 
-type `2` = Succ[Succ[Zero]]
-type `4` = Mult[`2`, `2`]
-type `IsTypelevelProgrammingFun?` = True
-type Result = If[`IsTypelevelProgrammingFun?`, Plus[`4`, `2`], Zero]
+type x = Plus[`3`, `4`]
+type y = Mult[`3`, `2`]
+type `IsTypelevelProgrammingFun?` = Not[EQ[x, y]]
+type result = If[`IsTypelevelProgrammingFun?`, Mult[x, y], Zero]
 ```
 
 ## Why ???

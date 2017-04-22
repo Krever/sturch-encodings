@@ -61,4 +61,7 @@ object bools {
     case _ => Failure(new IllegalArgumentException("Not a boolean"))
   }
 
+  import scala.reflect.runtime.universe.WeakTypeTag
+  def readBoolUnsafe[T: WeakTypeTag]: Boolean =  readBool(parse[T]).get
+
 }

@@ -10,8 +10,6 @@ class boolsSpec extends FunSuite with Matchers {
 
   import bools._
 
-  def readBoolUnsafe[T: WeakTypeTag]: Boolean =  readBool(parse[T]).get
-
   test("read bool") {
     readBoolUnsafe[True] shouldBe true
     readBoolUnsafe[False] shouldBe false
