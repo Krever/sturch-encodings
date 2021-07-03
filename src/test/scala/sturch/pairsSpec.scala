@@ -1,15 +1,16 @@
 package sturch
 
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
 /**
   * Created by wpitula on 4/18/17.
   */
-class pairsSpec extends FunSuite with Matchers {
+class pairsSpec extends AnyFunSuite with Matchers {
 
   test("pairs"){
-    import pairs._
     import nats._
+    import pairs._
 
     type `1` = Succ[Zero]
     type `2` = Succ[`1`]

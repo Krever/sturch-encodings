@@ -1,13 +1,14 @@
 package sturch
 
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import sturch.lists.{Cons, Head, Nil, Tail}
 import sturch.nats.{Plus, Succ, Zero, readInt}
 
 /**
   * Created by wpitula on 4/18/17.
   */
-class listsSpec extends FunSuite with Matchers {
+class listsSpec extends AnyFunSuite with Matchers {
 
   test("lists") {
     type `2` = Succ[Succ[Zero]]
