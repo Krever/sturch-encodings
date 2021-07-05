@@ -1,13 +1,11 @@
-### SBT template
-# Simple Build Tool
-# http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
-
 target/
 lib_managed/
 src_managed/
 project/boot/
 .history
 .cache
+/.bsp/sbt.json
+
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -41,6 +39,7 @@ project/boot/
 
 # IntelliJ
 /out/
+/.idea/*
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
